@@ -16,9 +16,15 @@ function GuessWordForm  ({theword, feedBackFn})  {
         das:'',
     };
 
+    let resultSolution = {
+        ok:false,
+        ko:false,
+        solution:''
+    }
+
     const [guessArticle, setGuessArticle] = useState('');
     const [guessWord, setGuessWord] = useState('');
-    const [result, setResult] = useState();
+    const [result, setResult] = useState(resultSolution);
     const [buttonSelected, setButtonSelected] = useState(buttonSel);
 
 
@@ -40,7 +46,7 @@ function GuessWordForm  ({theword, feedBackFn})  {
     const resetForm = () => {
         setGuessArticle('');
         setGuessWord('');
-        setResult('');
+        setResult(resultSolution);
         setButtonSelected({
             ...buttonSel
         });
@@ -53,19 +59,26 @@ function GuessWordForm  ({theword, feedBackFn})  {
             console.log("vuoto");
         }else {
             if(tagret.toLowerCase().includes(guessArticle.toLowerCase().trim()+" "+guessWord.toLowerCase().trim())){
-                setResult("Evvvai");
-            
+                
+                setResult({
+                    ...resultSolution,
+                    ok:true
+                });
                 setTimeout(()=>{
                     resetForm();
                     feedBackFn(true)            
                 },1500); 
     
             }else{
-                setResult("Noooo peccato, la risposta giusta era: "+tagret);
+                setResult({
+                    ...resultSolution,
+                    ko:true,
+                    solution: tagret
+                });
                 setTimeout(()=>{
                     resetForm();
                     feedBackFn(false)            
-                },1500);
+                },2500);
             }
         }
         
@@ -84,8 +97,11 @@ function GuessWordForm  ({theword, feedBackFn})  {
         
         <button className="btn btn-primary mt-2" onClick={controlla}>Controlla</button>
         <br/>
-        <p>Debug {guessArticle} {guessWord}</p>
-        <p>{result}</p>
+        {/*<p>Debug {guessArticle} {guessWord}</p>*/}
+        
+        <p className={result.ko ? '':'d-none'}> Noooo peccato, la risposta giusta era: <b>{result.solution}</b></p>
+        <p className={result.ok ? '':'d-none'}>Evvai</p>
+        
 
     </>
   );

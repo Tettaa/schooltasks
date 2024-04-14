@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 
 import GuessWordForm from './GuessWordForm.jsx'
 
+import image from '../assets/devsit.png';
 
 
 
@@ -59,6 +60,7 @@ function GermanWordChallange() {
   return (
 
     <div className="container">
+        <img src={image} class="img-fluid"/>
         <h1>{!endgame ? 'Indovina la parola in tedesco' : 'La partita è finita'}</h1>
         <h3>{'Indovinate ' + status.guessed +' su '+indexRef}</h3>
         {!endgame ? <GuessWordForm theword={challange} feedBackFn={feedBack} /> : ''}
