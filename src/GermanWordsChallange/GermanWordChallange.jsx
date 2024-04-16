@@ -45,8 +45,17 @@ function GermanWordChallange() {
   }
 
 
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
   async function initComponent() {
     const { data, error } = await supabase.from("words").select();
+    shuffleArray(data);
+    
     setVocabulary(data);
     setChallange(data[indexRef]);
     setError(error);
@@ -61,8 +70,8 @@ function GermanWordChallange() {
 
     <div className="container">
         <img src={image} class="img-fluid"/>
-        <h1>{!endgame ? 'Indovina la parola in tedesco' : 'La partita è finita'}</h1>
-        <h3>{'Indovinate ' + status.guessed +' su '+indexRef}</h3>
+        <h1>{!endgame ? 'Indovina la parola' : 'La partita è finita'}</h1>      
+        <h3 className={status.guessed !== undefined ? '':'d-none'}>{'Indovinate ' + status.guessed +' su '+indexRef}</h3>
         {!endgame ? <GuessWordForm theword={challange} feedBackFn={feedBack} /> : ''}
     </div>
   );

@@ -100,7 +100,7 @@ function GuessWordForm  ({theword, feedBackFn})  {
         {/*<p>Debug {guessArticle} {guessWord}</p>*/}
         
         <p className={result.ko ? '':'d-none'}> Noooo peccato, la risposta giusta era: <b>{result.solution}</b></p>
-        <p className={result.ok ? '':'d-none'}>Evvai</p>
+        <p className={result.ok ? '':'d-none'}>Evvai!!</p>
         
 
     </>
