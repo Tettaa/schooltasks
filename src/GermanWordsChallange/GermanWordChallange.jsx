@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
-
+import { useNavigate , useParams } from "react-router-dom";
 import GuessWordForm from './GuessWordForm.jsx'
-
 import image from '../assets/devsit.png';
-
+import {
+  Link,
+} from "react-router-dom";
 
 
 const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, 
@@ -20,9 +21,16 @@ function GermanWordChallange() {
   const [status, setStatus] = useState({});
   const [indexRef, setIndexRef] = useState(0);
   const [endgame, setEndgame] = useState(false);
+
+  const [nodeEnter, setNodeEnter] = useState('');
  
   useEffect(() => {
     initComponent();
+
+    setTimeout(()=>{
+      setNodeEnter('node-enter-active')
+    },200);
+
   }, []);
 
   const feedBack = (result) => {
@@ -68,11 +76,13 @@ function GermanWordChallange() {
 
   return (
 
-    <div className="container">
-        <img src={image} class="img-fluid"/>
+    <div className={"container node-enter "+nodeEnter}>
+        <img src={image} className="img-fluid"/>
         <h1>{!endgame ? 'Indovina la parola' : 'La partita è finita'}</h1>      
         <h3 className={status.guessed !== undefined ? '':'d-none'}>{'Indovinate ' + status.guessed +' su '+indexRef}</h3>
         {!endgame ? <GuessWordForm theword={challange} feedBackFn={feedBack} /> : ''}
+
+        <Link to="/" className="btn btn-secondary mt-8">Torna all'inizio</Link>
     </div>
   );
 }
