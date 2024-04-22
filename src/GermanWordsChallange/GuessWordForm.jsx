@@ -22,10 +22,21 @@ function GuessWordForm  ({theword, feedBackFn})  {
         solution:''
     }
 
+
+    let validateState = {
+        hiddenClass: 'd-none',
+        validateButtonClass: '',
+        validateInputClass: '',
+        validateText:' '
+    }
+
+
     const [guessArticle, setGuessArticle] = useState('');
     const [guessWord, setGuessWord] = useState('');
     const [result, setResult] = useState(resultSolution);
     const [buttonSelected, setButtonSelected] = useState(buttonSel);
+    const [validattion, setValidattion] = useState(validateState);
+
 
 
     const setArticle = (a) => {
@@ -56,8 +67,27 @@ function GuessWordForm  ({theword, feedBackFn})  {
         console.log(guessArticle);
         console.log(guessWord);
         if(guessArticle.trim().length == 0  || guessWord.trim().length == 0) {
-            console.log("vuoto");
-        }else {
+    
+            let tmp = {...validateState};
+
+            if(guessArticle.trim().length == 0) {
+                tmp['validateButtonClass'] = 'val-border-red';
+                tmp['validateText'] += 'Devi scegliere l\'articolo ';
+            }
+            if(guessWord.trim().length == 0) {
+                tmp['validateInputClass'] = 'val-border-red';
+                if(guessArticle.trim().length == 0) {
+                    tmp['validateText'] += ' e scrivere la parola ';
+                }else {
+                    tmp['validateText'] += 'Devi scrivere la parola ';
+                }
+            }
+
+            tmp['hiddenClass'] = '';
+            setValidattion(tmp);
+
+        } else {
+            setValidattion(validateState);
             if(tagret.toLowerCase().includes(guessArticle.toLowerCase().trim()+" "+guessWord.toLowerCase().trim())){
                 
                 setResult({
@@ -89,11 +119,12 @@ function GuessWordForm  ({theword, feedBackFn})  {
     <>
         <p>Come si dice <b>{source}</b> in tedesco?</p>
         <div className="mb-3 d-flex flex-row justify-content-center gap-2">
-            <button className={'btn btn-outline-primary '+ buttonSelected.der} onClick={() => setArticle('Der')}>Der</button>
-            <button className={'btn btn-outline-primary '+ buttonSelected.die} onClick={() => setArticle('Die')}>Die</button>
-            <button className={'btn btn-outline-primary '+ buttonSelected.das} onClick={() => setArticle('Das')}>Das</button>
+            <button className={validattion.validateButtonClass+' btn btn-outline-primary '+ buttonSelected.der} onClick={() => setArticle('Der')}>Der</button>
+            <button className={validattion.validateButtonClass+' btn btn-outline-primary '+ buttonSelected.die} onClick={() => setArticle('Die')}>Die</button>
+            <button className={validattion.validateButtonClass+' btn btn-outline-primary '+ buttonSelected.das} onClick={() => setArticle('Das')}>Das</button>
         </div>
-        <input className="form-control" value={guessWord} type="text" onChange={setWord}></input>
+        <input className={validattion.validateInputClass +' form-control'} value={guessWord} type="text" onChange={setWord}></input>
+        <div className={validattion.hiddenClass+' custom-invalid-feedback'}>{validattion.validateText}</div>
         
         <button className="btn btn-primary mt-2" onClick={controlla}>Controlla</button>
         <br/>

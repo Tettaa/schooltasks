@@ -53,3 +53,16 @@
   opacity: 1;
   transition: opacity 500ms;
 }
+
+
+.val-border-red {
+  border-color: var(--bs-form-invalid-color) !important;
+}
+
+.custom-invalid-feedback {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: var(--bs-form-invalid-color);
+}
+

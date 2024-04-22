@@ -3,6 +3,8 @@ import { createClient } from "@supabase/supabase-js";
 import { useNavigate , useParams } from "react-router-dom";
 import GuessWordForm from './GuessWordForm.jsx'
 import image from '../assets/devsit.png';
+import CssAppearAnimation from '../CssAppearAnimation.jsx';
+
 import {
   Link,
 } from "react-router-dom";
@@ -28,7 +30,7 @@ function GermanWordChallange() {
     initComponent();
 
     setTimeout(()=>{
-      setNodeEnter('node-enter-active')
+      //setNodeEnter('node-enter-active')
     },200);
 
   }, []);
@@ -75,15 +77,17 @@ function GermanWordChallange() {
 
 
   return (
+    <CssAppearAnimation timeout={500}>
+        <div className={"container "+nodeEnter}>
+            <img src={image} className="img-fluid"/>
+            <h1>{!endgame ? 'Indovina la parola' : 'La partita è finita'}</h1>      
+            <h3 className={status.guessed !== undefined ? '':'d-none'}>{'Indovinate ' + status.guessed +' su '+indexRef}</h3>
+            {!endgame ? <GuessWordForm theword={challange} feedBackFn={feedBack} /> : ''}
 
-    <div className={"container node-enter "+nodeEnter}>
-        <img src={image} className="img-fluid"/>
-        <h1>{!endgame ? 'Indovina la parola' : 'La partita è finita'}</h1>      
-        <h3 className={status.guessed !== undefined ? '':'d-none'}>{'Indovinate ' + status.guessed +' su '+indexRef}</h3>
-        {!endgame ? <GuessWordForm theword={challange} feedBackFn={feedBack} /> : ''}
+            <Link to="/" className="btn btn-secondary mt-8">Torna all'inizio</Link>
+        </div>
+    </CssAppearAnimation>
 
-        <Link to="/" className="btn btn-secondary mt-8">Torna all'inizio</Link>
-    </div>
   );
 }
 
