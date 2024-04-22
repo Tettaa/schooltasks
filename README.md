@@ -1,9 +1,11 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The main problem of general purpose learning application is that they are too "general".
+Think about learning german word, in a gen-purpose app there are too many words to learn for a student, instead a teacher give to theri student a  predefined set of word, that their students have to study.
 
-Currently, two official plugins are available:
+So, as a father of one of a girl in SM Tesserete, i pursue the goal of, in the my limit of time effort knoeledge and so on, build an application for helping kids to studies the words that the teacher will ask.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# schooltasks
+In my mind the result would be cover many other school subjects, so it is a never endingo work... 
+
+Enjoy schooltasks.
+Happy learning
