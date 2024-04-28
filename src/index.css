@@ -66,4 +66,6 @@
       color: var(--bs-form-invalid-color);
   }
   
-  
+  .img-tabelline {
+    width: 216px !important;
+  }
