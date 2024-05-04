@@ -69,3 +69,18 @@
   .img-tabelline {
     width: 216px !important;
   }
+
+ .tabelline input {
+    border: 0px;
+    border-bottom: 1px solid;
+    width: 140px;
+    text-align: center;
+  } 
+
+  .tabelline p.calcolo {
+    font-size: 4rem;
+  }
+
+ .tabelline input:focus-visible {
+  outline-width: 0;
+} 

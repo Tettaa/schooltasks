@@ -4,13 +4,17 @@ import {SchoolApp, NavigatorBoard} from './SchoolApp.jsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.css';
 
-
+{/*}
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <NavigatorBoard />
-  </React.StrictMode>,
+  </React.StrictMode>
+  ,
 )
+*/}
 
-
+ReactDOM.createRoot(document.getElementById('root')).render(
+<NavigatorBoard />
+)
 
 

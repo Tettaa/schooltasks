@@ -19,7 +19,8 @@ function GuessWordForm  ({theword, feedBackFn})  {
     let resultSolution = {
         ok:false,
         ko:false,
-        solution:''
+        solution:'',
+        okMessage:'Evvai!!'
     }
 
 
@@ -63,6 +64,33 @@ function GuessWordForm  ({theword, feedBackFn})  {
         });
     }
 
+
+    const proximityGuess = (guess, correct) => {
+        
+        let guessArray = guess.toLowerCase().split('');
+        let correctArray = correct.toLowerCase().split('');
+
+        let minL = correctArray.length > guessArray.length ?  guessArray.length : correctArray.length
+
+        let guessedCount = 0;
+        for(let r = 0;r < minL;r++) {        
+            //console.log(guessArray[r] +"=="+ correctArray[r]);
+            if(guessArray[r] == correctArray[r]){
+                guessedCount++;
+            }
+        }
+
+      
+        let threshold = correctArray.length - guessedCount;
+        let diff = correctArray.length - guessArray.length;
+        
+        threshold + diff; 
+        
+        return threshold;
+
+    }
+
+
     const controlla = () => {
         console.log(guessArticle);
         console.log(guessWord);
@@ -88,11 +116,17 @@ function GuessWordForm  ({theword, feedBackFn})  {
 
         } else {
             setValidattion(validateState);
-            if(tagret.toLowerCase().includes(guessArticle.toLowerCase().trim()+" "+guessWord.toLowerCase().trim())){
+
+            let getWord = proximityGuess(guessWord,word);
+            let getArticle = guessArticle.toLowerCase().trim() == article.toLowerCase().trim()
+
+
+            if(getArticle && getWord <= 1){
                 
                 setResult({
                     ...resultSolution,
-                    ok:true
+                    ok:true,
+                    okMessage: getWord == 1 ? "Te la faccio passare! Giusta era "+tagret: "Evvai!!"
                 });
                 setTimeout(()=>{
                     resetForm();
@@ -131,7 +165,7 @@ function GuessWordForm  ({theword, feedBackFn})  {
         {/*<p>Debug {guessArticle} {guessWord}</p>*/}
         
         <p className={result.ko ? '':'d-none'}> Noooo peccato, la risposta giusta era: <b>{result.solution}</b></p>
-        <p className={result.ok ? '':'d-none'}>Evvai!!</p>
+        <p className={result.ok ? '':'d-none'}>{result.okMessage}</p>
         
 
     </>

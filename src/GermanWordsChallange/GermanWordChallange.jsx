@@ -4,6 +4,8 @@ import { useNavigate , useParams } from "react-router-dom";
 import GuessWordForm from './GuessWordForm.jsx'
 import image from '../assets/devsit.png';
 import CssAppearAnimation from '../CssAppearAnimation.jsx';
+import { shuffleArray } from "../common.js";
+
 
 import {
   Link,
@@ -53,14 +55,6 @@ function GermanWordChallange() {
     }
     
   }
-
-
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
 
   async function initComponent() {
     const { data, error } = await supabase.from("words").select();
