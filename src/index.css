@@ -78,9 +78,16 @@
   } 
 
   .tabelline p.calcolo {
-    font-size: 4rem;
+    font-size: 2rem;
   }
 
- .tabelline input:focus-visible {
+ .tabelline input:focus-visible,
+ .tabelline input:focus {
   outline-width: 0;
+  outline: none;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 } 
+
+
