@@ -8,7 +8,7 @@ import { shuffleArray } from "../common.js";
 const TabellineTabellone = () => {
 
 
-    let base = 10;
+    let base = 100;
     let counterRef = useRef(base);
     const [time, setTime] = useState(counterRef.current);
     const [addendumA, setAddendumA] = useState();
@@ -19,10 +19,7 @@ const TabellineTabellone = () => {
 
     let okRef = useRef(0);
     let nokRef = useRef(0);
-    const [challenge, setChallenge] = useState({
-        ok:0,
-        ko:0,
-    });
+ 
 
     let othersRef = useRef([]);
 
@@ -51,8 +48,6 @@ const TabellineTabellone = () => {
     }
 
 
-
-
     useEffect(() => {
 
         console.log("Entro 1");
@@ -67,7 +62,6 @@ const TabellineTabellone = () => {
         setAddendumB(one2ten.pop());
         othersRef.current = one2ten;
         
-
       }, []);
     
 
@@ -94,40 +88,37 @@ const TabellineTabellone = () => {
     
 
 
-
-
-    const controlla = () => {
-        if(result == addendumA * addendumB){            
-            Ok();
-        }else{
-            Nok();
-        }
-    }
-
-
-
-
-
     return (
         <>
+        <CssAppearAnimation timeout={500}>
             <div className="container tabelline">
 
                 {(addendumA && addendumB) &&
                                 <p className="calcolo"> {addendumA} * {addendumB}  = <input value={result} onChange={e => setResult(e.target.value)}  type="number" />   </p>
                 }
+                {(othersRef.current.length == 0 && !(addendumA && addendumB)) && 
+                    <p className="calcolo">Partita finita</p> 
+                    }
+                
+                <button className="btn btn-primary mt-2" onClick={() => {
+                    result == addendumA * addendumB ? Ok() : Nok()
+                    setResult('');
+                }}>Controlla</button>
+                
 
-                
-                <button className="btn btn-primary mt-2" onClick={controlla}>Controlla</button>
-                
-                <div className="progress mt-3" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                    <div className={"progress-bar overflow-visible text-dark " + (time < 20 ? "bg-danger":"") } style={{width:time+'%'}}>Se non la becchi in tempo!!!!</div>
-                </div>
+                {(addendumA && addendumB) &&
+                    <div className="progress mt-3" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <div className={"progress-bar overflow-visible text-dark " + (time < 20 ? "bg-danger":"") } style={{width:time+'%'}}>Se non la becchi in tempo!!!!</div>
+                    </div>
+                    }
+
                 <h3 className="mt-3">{'Indovinate ' + okRef.current +' su '+nokRef.current}</h3>
 
 
                             
                 <Link to="/" className="btn btn-secondary mt-8">Torna all'inizio</Link>
             </div>
+            </CssAppearAnimation>
         </>
     )
 
