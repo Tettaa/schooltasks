@@ -57,12 +57,14 @@ function GermanWordChallange() {
   }
 
   async function initComponent() {
-    const { data, error } = await supabase.from("words").select();
+    const { data, error } = await supabase.from("empty").select();
     shuffleArray(data);
     
     setVocabulary(data);
     setChallange(data[indexRef]);
     setError(error);
+    
+
     setStatus({      
       guessed:0,
       totals:data.length
@@ -71,16 +73,40 @@ function GermanWordChallange() {
 
 
   return (
-    <CssAppearAnimation timeout={500}>
-        <div className={"container "+nodeEnter}>
-            <img src={image} className="img-fluid"/>
-            <h1>{!endgame ? 'Indovina la parola' : 'La partita è finita'}</h1>      
-            <h3 className={status.guessed !== undefined ? '':'d-none'}>{'Indovinate ' + status.guessed +' su '+indexRef}</h3>
-            {!endgame ? <GuessWordForm theword={challange} feedBackFn={feedBack} /> : ''}
+          <>    
+          {error && 
+            <CssAppearAnimation timeout={500}>
+            <h3>Attenzione abbiamo un problema con il caricamento dei dati, Tetta ha cannato qualcosa.</h3>
+            <Link to="/" className="btn btn-secondary mt-8">Torna all'inizio</Link></CssAppearAnimation>
 
-            <Link to="/" className="btn btn-secondary mt-8">Torna all'inizio</Link>
-        </div>
-    </CssAppearAnimation>
+          ||
+
+          <CssAppearAnimation timeout={500}>
+
+              {challange 
+              
+                &&
+
+                <div className={"container "+nodeEnter}>
+                    <img src={image} className="img-fluid"/>
+                    <h1>{!endgame ? 'Indovina la parola' : 'La partita è finita'}</h1>      
+                    <h3 className={status.guessed !== undefined ? '':'d-none'}>{'Indovinate ' + status.guessed +' su '+indexRef}</h3>
+                    {!endgame ? <GuessWordForm theword={challange} feedBackFn={feedBack} /> : ''}
+
+                    <Link to="/" className="btn btn-secondary mt-8">Torna all'inizio</Link>
+                </div> 
+
+                ||
+                <CssAppearAnimation timeout={500}>
+                <h3>Attenzione non ci sono dati. Tetta ha cannato qualcosa.</h3>
+                <Link to="/" className="btn btn-secondary mt-8">Torna all'inizio</Link></CssAppearAnimation>
+
+              }
+          </CssAppearAnimation>
+
+          }
+
+          </>
 
   );
 }

@@ -5,9 +5,12 @@ const CssAppearAnimation = ({children,timeout = 200}) => {
     const [nodeEnter, setNodeEnter] = useState('');
     
     useLayoutEffect(() => {
-        setTimeout(()=>{
+        let timeOut = setTimeout(()=>{
             setNodeEnter('node-enter-active')
           },timeout);
+
+          return () => clearTimeout(timeOut);
+
       }, []);
 
 
