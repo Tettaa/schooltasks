@@ -57,7 +57,7 @@ function GermanWordChallange() {
   }
 
   async function initComponent() {
-    const { data, error } = await supabase.from("empty").select();
+    const { data, error } = await supabase.from("german_words").select();
     shuffleArray(data);
     
     setVocabulary(data);
